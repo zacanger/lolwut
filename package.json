@@ -1,31 +1,29 @@
 {
   "name": "lolwut",
-  "version": "0.0.1",
   "description": "bar quux baz",
-  "main": "index.js",
-  "scripts": {
-    "test": "",
-    "start": "node index"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zacanger/lolwut.git"
-  },
-  "keywords": [
-    "",
-    ""
-  ],
+  "version": "0.0.2",
   "author": {
     "name": "Zac Anger",
     "email": "zac@zacanger.com",
     "url": "http://zacanger.com"
   },
-  "homepage": "https://github.com/zacanger/lolwut#readme",
-  "bugs": "https://github.com/zacanger/lolwut/issues",
   "license": "WTFPL",
-  "dependencies": {
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": "index.js",
+  "scripts": {
+    "start": "node index"
   },
-  "devDependencies": {
-  }
+  "homepage": "https://github.com/zacanger/lolwut#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zacanger/lolwut.git"
+  },
+  "bugs": "https://github.com/zacanger/lolwut/issues",
+  "keywords": [
+    "",
+    ""
+  ],
+  "dependencies": {},
+  "devDependencies": {}
 }
-
