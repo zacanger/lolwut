@@ -1,3 +1,10 @@
 #!/usr/bin/env node
 
-console.info(`This is not a thing yet. But it will be. Promise.`)
+let i = 0
+setInterval(() => {
+  process.stdout.clearLine()
+  process.stdout.cursorTo(0)
+  i = (i + 1) % 4
+  var dots = new Array(i + 1).join('.')
+  process.stdout.write(dots)
+}, 300)
