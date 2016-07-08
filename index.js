@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 
+const
+  fs    = require('fs')
+, path  = require('path')
+, lame  = require('lame')
+, Spkr  = require('speaker')
+, mp3   = path.resolve(__dirname, 'mp3.mp3')
+, width = process.stdout.columns
+
+process.stdout.write('\033c')
+
 function gencolours() {
   const colours = []
   for (let i = 0; i < (6 * 7); i++) {
@@ -23,11 +33,18 @@ const col = str => {
   colourIndex += 1
   return `\u001b[38;5;${colour}m${str}\u001b[0m`
 }
+
 let i = 0
 setInterval(() => {
   process.stdout.clearLine()
   process.stdout.cursorTo(0)
-  i = (i + 1) % 4
+  i = (i + 1) % width
   var dots = new Array(i + 1).join('.')
   process.stdout.write(col(dots))
-}, 300)
+}, 100)
+
+fs.createReadStream(mp3)
+.pipe(new lame.Decoder())
+.on('format', function (format) {
+  this.pipe(new Spkr(format))
+})
