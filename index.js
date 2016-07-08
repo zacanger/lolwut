@@ -37,8 +37,7 @@ const col = str => {
 
 let i = 0
 setInterval(() => {
-  out.clearLine()
-  out.cursorTo(0)
+  out.cursorTo(width)
   i = (i + 1) % width
   const dots = new Array(i + 1).join('.')
   out.write(col(dots))
