@@ -6,9 +6,10 @@ const
 , lame  = require('lame')
 , Spkr  = require('speaker')
 , mp3   = path.resolve(__dirname, 'mp3.mp3')
-, width = process.stdout.columns
+, out   = process.stdout
+, width = out.columns
 
-process.stdout.write('\033c')
+out.write('\033c')
 
 function gencolours() {
   const colours = []
@@ -36,11 +37,11 @@ const col = str => {
 
 let i = 0
 setInterval(() => {
-  process.stdout.clearLine()
-  process.stdout.cursorTo(0)
+  out.clearLine()
+  out.cursorTo(0)
   i = (i + 1) % width
-  var dots = new Array(i + 1).join('.')
-  process.stdout.write(col(dots))
+  const dots = new Array(i + 1).join('.')
+  out.write(col(dots))
 }, 100)
 
 fs.createReadStream(mp3)
