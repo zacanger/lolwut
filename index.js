@@ -21,6 +21,8 @@ const
 
 let width = out.columns
 
+// what is out.write('\x1B[2J') ??
+// this resets cursor, as well: out.write('\x1B[2J\x1B[0f')
 out.write('\033c')
 
 out.on('resize', () => {
