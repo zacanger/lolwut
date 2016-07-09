@@ -1,15 +1,32 @@
 #!/usr/bin/env node
 
 const
+  out   = process.stdout
+, tty   = require('tty')
+
+// just exit if !tty
+// if (!out.isTTY) might be same as below?
+if (!tty.isatty(out.fd)) {
+  out.write('please run in a tty')
+  process.exit(1)
+}
+
+const
   fs    = require('fs')
 , path  = require('path')
 , lame  = require('lame')
 , Spkr  = require('speaker')
 , mp3   = path.resolve(__dirname, 'mp3.mp3')
-, out   = process.stdout
-, width = out.columns
+, size  = out.getWindowSize()
+
+let width = out.columns
 
 out.write('\033c')
+
+out.on('resize', () => {
+  out.write('\033c')
+  width = out.columns
+})
 
 function gencolours() {
   const colours = []
@@ -39,7 +56,7 @@ let i = 0
 setInterval(() => {
   out.cursorTo(width)
   i = (i + 1) % width
-  const dots = new Array(i + 1).join('.')
+  const dots = new Array(i + 1).join('|')
   out.write(col(dots))
 }, 100)
 
