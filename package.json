@@ -1,7 +1,7 @@
 {
   "name": "lolwut",
   "description": "this is a thing",
-  "version": "0.0.11",
+  "version": "0.1.0",
   "author": {
     "name": "Zac Anger",
     "email": "zac@zacanger.com",
@@ -21,14 +21,14 @@
   },
   "bugs": "https://github.com/zacanger/lolwut/issues",
   "keywords": [
-    "colour",
     "color",
-    "terminal",
+    "colour",
     "electronica",
     "fun",
     "lol",
-    "wut",
-    "music"
+    "music",
+    "terminal",
+    "wut"
   ],
   "dependencies": {
     "lame": "^1.2.4",

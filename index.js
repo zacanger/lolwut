@@ -54,14 +54,28 @@ const col = str => {
   return `\u001b[38;5;${colour}m${str}\u001b[0m`
 }
 
-let i = 0
-setInterval(() => {
-  out.cursorTo(width)
-  i = (i + 1) % width
-  const dots = new Array(i + 1).join('\\')
-  out.write(col(dots))
-}, 100)
+const go = () => {
+  let i = 0
+  setInterval(() => {
+    out.cursorTo(width)
+    i = (i + 1) % width
+    const dots = new Array(i + 1).join('\\')
+    out.write(col(dots))
+  }, 100)
+}
 
-fs.createReadStream(mp3)
-.pipe(new lame.Decoder())
-.pipe(new Spkr())
+if (process.argv[2]) {
+  const arg = process.argv[2]
+  if (arg === '-h' || arg === '--help') {
+    out.write('run me with `lolwut`\n')
+    out.write('use the `-s` flag to run silently')
+  }
+  if (arg === '-s' || arg === '--silent') {
+    go()
+  }
+} else {
+  go()
+  fs.createReadStream(mp3)
+  .pipe(new lame.Decoder())
+  .pipe(new Spkr())
+}
