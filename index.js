@@ -18,6 +18,7 @@ const
 , Spkr  = require('speaker')
 , mp3   = path.resolve(__dirname, 'mp3.mp3')
 , size  = out.getWindowSize()
+, v     = require('./package.json').version
 
 let width = out.columns
 
@@ -64,14 +65,26 @@ const go = () => {
   }, 100)
 }
 
+const help = () =>
+  out.write(`\x1b[36m
+  lolwut    # run with sound
+  lolwut -s # run silently
+  lolwut -v # version number
+\x1b[0m`)
+
+const version = () =>
+  out.write(`\x1b[33mlolwut version ${v}\x1b[0m`)
+
 if (process.argv[2]) {
   const arg = process.argv[2]
   if (arg === '-h' || arg === '--help') {
-    out.write('run me with `lolwut`\n')
-    out.write('use the `-s` flag to run silently')
+    return help()
   }
   if (arg === '-s' || arg === '--silent') {
-    go()
+    return go()
+  }
+  if (arg === '-v' || arg === '--version') {
+    return version()
   }
 } else {
   go()

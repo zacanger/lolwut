@@ -1,10 +1,10 @@
 `npm i -g lolwut`
 
-turn your speakers/headphones down
-
-`lolwut`
-
-or `lolwut -s` to run silently
+```
+  lolwut    # run with sound
+  lolwut -s # run silently
+  lolwut -v # version number
+```
 
 if this doesn't work for you, please put in an issue or hit me up
 [on twitter](https://twitter.com/@zacanger)
