@@ -4,9 +4,7 @@ const
   out   = process.stdout
 , tty   = require('tty')
 
-// just exit if !tty
-// if (!out.isTTY) might be same as below?
-if (!tty.isatty(out.fd)) {
+if (!tty.isatty(out.fd)) { // if !out.isTTY may be same?
   out.write('please run in a tty')
   process.exit(1)
 }
@@ -31,7 +29,7 @@ out.on('resize', () => {
   width = out.columns
 })
 
-function gencolours() {
+const gencolours = () => {
   const colours = []
   for (let i = 0; i < (6 * 7); i++) {
     const
