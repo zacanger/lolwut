@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// exit right away if we're not in a tty
 const
   out   = process.stdout
 , tty   = require('tty')
@@ -16,7 +17,15 @@ const
 , Spkr  = require('speaker')
 , mp3   = path.resolve(__dirname, 'mp3.mp3')
 , size  = out.getWindowSize()
-, v     = require('./package.json').version
+, pkg   = require('./package.json')
+, vers  = () =>
+  out.write(`\x1b[33mlolwut version ${pkg.version}\x1b[0m`)
+, help  = () =>
+  out.write(`\x1b[36m
+  lolwut    # run with sound
+  lolwut -s # run silently
+  lolwut -v # version number
+\x1b[0m`)
 
 let width = out.columns
 
@@ -24,11 +33,13 @@ let width = out.columns
 // out.write('\033c')   // not sure?
 out.write('\x1B[2J\x1B[0f') // resets cursor, as well
 
+// clear term and reset width to new size
 out.on('resize', () => {
   out.write('\x1B[2J\x1B[0f')
   width = out.columns
 })
 
+// generate colours -- see npm.im/rainbowify
 const gencolours = () => {
   const colours = []
   for (let i = 0; i < (6 * 7); i++) {
@@ -42,37 +53,47 @@ const gencolours = () => {
   }
   return colours
 }
-
 const rainbowColours = gencolours()
-
 let colourIndex = 0
-
 const col = str => {
   const colour = rainbowColours[colourIndex % rainbowColours.length]
   colourIndex += 1
   return `\u001b[38;5;${colour}m${str}\u001b[0m`
 }
 
-const go = () => {
+// the triangles-to-terminal-width thing
+const makeAngles = () => {
   let i = 0
-  setInterval(() => {
+  const makeEm = () => {
     out.cursorTo(width)
     i = (i + 1) % width
-    const dots = new Array(i + 1).join('\\')
+    const dots = new Array(i + 1).join('▋')
     out.write(col(dots))
-  }, 100)
+  }
+  const anglesId = setInterval(makeEm, 100)
+  // while (true) {
+  // const thirtySecondsFromNow = Date.now() + 300000
+  // if (thirtySecondsFromNow <= Date.now()) {
+  // return clearInterval(anglesId)
+  // }
+  // }
 }
 
-const help = () =>
-  out.write(`\x1b[36m
-  lolwut    # run with sound
-  lolwut -s # run silently
-  lolwut -v # version number
-\x1b[0m`)
+// the line-to-terminal-width thing
+const makeLines = () => setInterval(() => {
+  for (let i = 0; i < width ; i++) {
+  out.write(col('▉'))
+  }
+}, 500)
 
-const version = () =>
-  out.write(`\x1b[33mlolwut version ${v}\x1b[0m`)
 
+const go = () => {
+  makeAngles()
+  // handle makeAngles and makeLines in here
+  // and preferably other nifty functions at some point
+}
+
+// handle arguments
 if (process.argv[2]) {
   const arg = process.argv[2]
   if (arg === '-h' || arg === '--help') {
@@ -82,7 +103,7 @@ if (process.argv[2]) {
     return go()
   }
   if (arg === '-v' || arg === '--version') {
-    return version()
+    return vers()
   }
 } else {
   go()
@@ -90,3 +111,7 @@ if (process.argv[2]) {
   .pipe(new lame.Decoder())
   .pipe(new Spkr())
 }
+
+// clear stuff
+// out.clearLine()
+// out.cursorTo(0)
