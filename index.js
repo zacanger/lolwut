@@ -67,7 +67,7 @@ const makeAngles = () => {
   const makeEm = () => {
     out.cursorTo(width)
     i = (i + 1) % width
-    const dots = new Array(i + 1).join('▋')
+    const dots = new Array(i + 1).join('▉')
     out.write(col(dots))
   }
   const anglesId = setInterval(makeEm, 100)
@@ -80,15 +80,20 @@ const makeAngles = () => {
 }
 
 // the line-to-terminal-width thing
-const makeLines = () => setInterval(() => {
+const makeDeco = () => setInterval(() => {
+  out.clearLine()
+  out.cursorTo(0)
   for (let i = 0; i < width ; i++) {
-  out.write(col('▉'))
+    out.write(col('▉▊▋▌▍▎▏▎▍▌▋▊▉▊▋▌▍▎▏▎▍▌▋▊'))
+    out.write(col('▉▊▋▌▍▎▏▎▍▌▋▊▉▊▋▌▍▎▏▎▍▌▋▊'))
+    out.write(col('▉▊▋▌▍▎▏▎▍▌▋▊▉▊▋▌▍▎▏▎▍▌▋▊'))
   }
-}, 500)
+}, 45000)
 
 
 const go = () => {
   makeAngles()
+  makeDeco()
   // handle makeAngles and makeLines in here
   // and preferably other nifty functions at some point
 }
