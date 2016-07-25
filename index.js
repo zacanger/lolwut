@@ -18,10 +18,8 @@ const
 , mp3   = path.resolve(__dirname, 'mp3.mp3')
 , size  = out.getWindowSize()
 , pkg   = require('./package.json')
-, vers  = () =>
-  out.write(`\x1b[33mlolwut version ${pkg.version}\x1b[0m`)
-, help  = () =>
-  out.write(`\x1b[36m
+, vers  = () => out.write(`\x1b[33mlolwut version ${pkg.version}\x1b[0m`)
+, help  = () => out.write(`\x1b[36m
   lolwut    # run with sound
   lolwut -s # run silently
   lolwut -v # version number
