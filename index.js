@@ -98,7 +98,6 @@ const makeDeco = () => setInterval(() => {
 
 const go = () => {
   makeAngles()
-  const start = new Date().getTime()
   setTimeout(() => makeDeco(), 30000)
   // handle makeAngles and makeLines in here
   // and preferably other nifty functions at some point
