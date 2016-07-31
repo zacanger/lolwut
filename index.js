@@ -93,12 +93,13 @@ const makeDeco = () => setInterval(() => {
     out.write(col('▉▊▋▌▍▎▏▎▍▌▋▊▉▊▋▌▍▎▏▎▍▌▋▊'))
     out.write(col('▉▊▋▌▍▎▏▎▍▌▋▊▉▊▋▌▍▎▏▎▍▌▋▊'))
   }
-}, 45000)
+}, 20000)
 
 
 const go = () => {
   makeAngles()
-  makeDeco()
+  const start = new Date().getTime()
+  setTimeout(() => makeDeco(), 30000)
   // handle makeAngles and makeLines in here
   // and preferably other nifty functions at some point
 }
