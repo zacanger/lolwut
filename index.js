@@ -2,11 +2,18 @@
 
 // exit right away if we're not in a tty
 const
-  out   = process.stdout
-, tty   = require('tty')
+  out = process.stdout
+, tty = require('tty')
 
 if (!tty.isatty(out.fd)) { // if !out.isTTY may be same?
   out.write('please run in a tty')
+  process.exit(1)
+}
+
+// exit if we don't support colour
+const terms = /^screen|^xterm|^vt100|color|ansi|cygwin|linux/i
+if (!(!!process.env.COLORTERM || terms.test(process.env.TERM))) {
+  out.write('please use a terminal that supports colour')
   process.exit(1)
 }
 
