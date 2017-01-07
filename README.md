@@ -1,4 +1,12 @@
+## lolwut
+
+if you get an error when running, please `npm rm -g lolwut && npm i -g lolwut`
+
+## Installation:
+
 `npm i -g lolwut`
+
+## Usage
 
 ```
   lolwut    # run with sound
